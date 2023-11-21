@@ -1,4 +1,4 @@
-# test
+# test Hugo
 
 import platform
 import random
