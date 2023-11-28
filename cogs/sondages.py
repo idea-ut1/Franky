@@ -33,6 +33,9 @@ class Sondages(commands.Cog, name="sondages"):
         for emoji in emojis:
             await message.add_reaction(emoji)
 
+        # Supprimer le message de l'utilisateur qui a déclenché la commande
+        await context.message.delete()
+
 
 async def setup(bot) -> None:
     await bot.add_cog(Sondages(bot))
