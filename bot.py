@@ -262,3 +262,4 @@ load_dotenv()
 
 bot = DiscordBot()
 bot.run(os.getenv("TOKEN"))
+print('a')
