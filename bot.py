@@ -257,8 +257,7 @@ class DiscordBot(commands.Bot):
         else:
             raise error
 
-
 load_dotenv()
-
+TOKEN = "MTE3NjQ3NTA5OTE4NTAyOTE4MQ.GQeCBd.MlFnfvOPjG7S4hlh5OqRRlhefK0FDS3YJoRPHQ"
 bot = DiscordBot()
-bot.run(os.getenv("TOKEN"))
+bot.run(TOKEN)
