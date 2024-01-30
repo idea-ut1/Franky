@@ -1,4 +1,4 @@
-# test
+# test zaefef
 
 import platform
 import random
@@ -157,6 +157,7 @@ class General(commands.Cog, name="general"):
             color=0xBEBEFE,
         )
         await context.send(embed=embed)
+
 
     @commands.hybrid_command(
         name="invitation",
