@@ -256,8 +256,7 @@ class DiscordBot(commands.Bot):
             await context.send(embed=embed)
         else:
             raise error
-
-
+    
 load_dotenv()
 
 bot = DiscordBot()
