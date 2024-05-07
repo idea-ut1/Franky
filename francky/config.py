@@ -30,9 +30,11 @@ class Config():
             dict : projet : cannal
         """
         return {
-            'DISCORD' : '😀╿discord',
-            'AEG' : '😂╿aeg',
-            'SITE-WEB' : '🐷╿site-web'
+            'Site idea' : '🛠│site-idea',
+            'AEG' : '💾│aeg',
+            'Canceropole' : '⚙│deep-cancer',
+            'Catching Spirits' : '🔥│catching-spirit',
+            'Occitanie' : '🥐│projet-occitanie'
         }
 
     @property
@@ -61,11 +63,10 @@ class Config():
             list : fonctions
         """
         return [
-            'DEVELOPPER',
-            'MANAGER',
-            'TECH LEAD'
+            'Chapo',
+            'Manager',
+            'Tech Lead',
+            'Développeur'
         ]
-
-
 
 config = Config()
