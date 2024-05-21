@@ -4,6 +4,9 @@ import discord
 from ..config import config
 from .embed import Embed
 from ..extensions.member import Member
+from datetime import datetime
+import time
+
 
 class Event:
     async def send_message(interaction, **kwargs):
@@ -75,22 +78,26 @@ class Event:
             interaction : interaction
             message : bilan de la séances
         """
+        session_duration = (datetime.now() - interaction.client.session.start)
+        session_duration_seconds = time.gmtime(session_duration.total_seconds())
+        formated_session_duration = time.strftime('%H:%M', session_duration_seconds)
+        
         summaries = interaction.client.session.summaries
         for project_name, channel_name in config.map_projects_channels.items():
             channel = discord.utils.get(interaction.guild.text_channels, name=channel_name)
             if not channel:
                 continue
+
             embed = Embed.get(
-                title=f"Séance du {interaction.client.session.start.strftime('%Y-%m-%d %H:%M:%S')} | Bilan"
+                title=f"Séance du {interaction.client.session.start.strftime('%d-%m-%y %H:%M')} ({formated_session_duration}) | Bilan"
             )
             for summary in summaries:
                 if project_name != summary.author.project:
                     continue
 
                 if summary.author.function:
-                    title = f"{summary.author.user.name} - {summary.author.function}"
+                    title = f"{summary.author.user.nick} - {summary.author.function}"
                 else:
-                    title = summary.author.user.name
+                    title = summary.author.user.nick
                 embed.add_field(name=title, value=summary.message, inline=False)
             await channel.send(embed=embed)
-

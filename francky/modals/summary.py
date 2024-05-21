@@ -4,14 +4,15 @@ from ..utils.event import Event
 
 class Summary(ui.Modal):
 
-    def __init__(self):
-        super().__init__(title="Bilan de séance")
-
     message = ui.TextInput(
         label="Message",
         style=discord.TextStyle.long,
         required=False
     )
+
+    def __init__(self, message_content=None):
+        super().__init__(title="Bilan de séance")
+        self.message.default = message_content
 
     async def on_submit(self, interaction: discord.Interaction):
         """

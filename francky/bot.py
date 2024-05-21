@@ -1,5 +1,5 @@
-from discord.ext import commands
 import discord
+from discord.ext import commands
 from . import PROJECT_NAME, COGS_NAME
 from .extensions.members import Members
 

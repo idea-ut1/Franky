@@ -40,7 +40,8 @@ class Message:
 
         for emoji, members in reactions.items():
             for member in members:
-                reactions_by_project[member.project][emoji] += 1
+                if member.project in config.projects:
+                    reactions_by_project[member.project][emoji] += 1
 
         return reactions_by_project
 
@@ -65,4 +66,3 @@ class Message:
         """
         for reaction in reactions:
             await self.add_reaction(reaction)
-

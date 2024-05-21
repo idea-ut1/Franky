@@ -25,7 +25,8 @@ class Config():
     @property
     def map_projects_channels(self):
         """
-        mapping des projets (roles) et les cannaux
+        liens entre les projets (roles) et cannaux
+        
         returns:
             dict : projet : cannal
         """
@@ -36,6 +37,12 @@ class Config():
             'Catching Spirits' : '🔥│catching-spirit',
             'Occitanie' : '🥐│projet-occitanie'
         }
+
+
+        return {
+            'SITE-WEB' : '🐷╿site-web'
+        }
+
 
     @property
     def projects(self):
@@ -58,14 +65,14 @@ class Config():
     @property
     def functions(self):
         """
-        fonctions des membres possibles
+        fonctions possibles des membres
+
         returns:
             list : fonctions
         """
         return [
             'Chapo',
             'Manager',
-            'Tech Lead',
             'Développeur'
         ]
 

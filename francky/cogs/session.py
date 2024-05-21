@@ -17,21 +17,18 @@ class Session(commands.Cog):
     def __init__(self, bot):
         self.bot = bot  
 
-    async def _check_if_session_exist(self, interaction: discord.Interaction):
+    async def _get_session_state_message(self, interaction):
         """
-        Vérifie si une séance est en cours.
+        Envoi un message à l'utilisateur informant de l'etat de la session
 
         Args:
             interaction : L'interaction Discord qui a déclenché la vérification.
-
-        Returns:
-            bool: True si une séance est en cours, False sinon.
         """
-        if not self.bot.session:
-            await interaction.response.send_message("Aucune séance n'est en cours.", ephemeral=True)
-            return False
-        else:
-            return True
+
+        message = "Une séance est déjà en cours." if self.bot.session else "Aucune séance n'est en cours."
+
+        await interaction.response.send_message(message, ephemeral=True)
+
 
     @group.command(name='start', description='Démarre une séance')
     async def start(self, interaction: discord.Interaction):
@@ -42,6 +39,10 @@ class Session(commands.Cog):
         Args:
             interaction : L'interaction Discord qui a déclenché la commande.
         """
+        if self.bot.session:
+            await self._get_session_state_message(interaction)
+            return
+        
         self.bot.session = DataSession()
         await interaction.response.send_message("La séance démarre.", ephemeral=True)
 
@@ -54,9 +55,10 @@ class Session(commands.Cog):
         Args:
             interaction : L'interaction Discord qui a déclenché la commande.
         """
-        is_session = await self._check_if_session_exist(interaction=interaction)
-        if not is_session:
+        if not self.bot.session:
+            await self._get_session_state_message(interaction)
             return
+        
         await Event.send_summaries(interaction=interaction)        
         self.bot.session = None
         await interaction.response.send_message("La session est terminé", ephemeral=True)
@@ -69,10 +71,12 @@ class Session(commands.Cog):
         Args:
             interaction (discord.Interaction): L'interaction Discord qui a déclenché la commande.
         """
-        is_session = await self._check_if_session_exist(interaction=interaction)
-        if not is_session:
+        if not self.bot.session:
+            await self._get_session_state_message(interaction)
             return
-        await interaction.response.send_modal(SummaryView())
+        
+        previous_summary = self.bot.session.get_summary_message_with_author(interaction.user)
+        await interaction.response.send_modal(SummaryView(message_content=previous_summary))
 
 async def setup(bot):
     cog = Session(bot)
