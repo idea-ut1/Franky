@@ -1,3 +1,3 @@
-from francky import main
+import subprocess
 
-main()
+subprocess.call("python -m francky", shell=True)
