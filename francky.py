@@ -1,3 +1,3 @@
-import main from francky
+from francky import main
 
 main()
